@@ -87,11 +87,10 @@ class ClientHandler implements Runnable {
 
     private static void writeToFile(ObjectInputStream mapInputStream, String DIRECTORY_NAME) throws IOException {
         try {
-            Date dateTime = new Date();
-            File file = new File(DIRECTORY_NAME + "\\File_" + dateTime.getTime() + ".properties");
-            Properties properties = new Properties();
-
             Map<String, String> dataMap = (Map) mapInputStream.readObject();
+            String processedFileName = dataMap.get("client_file_name");
+            File file = new File(DIRECTORY_NAME + "\\" + processedFileName);
+            Properties properties = new Properties();
 
             for (Map.Entry<String, String> entry : dataMap.entrySet()) {
                 properties.setProperty(entry.getKey(), entry.getValue());
